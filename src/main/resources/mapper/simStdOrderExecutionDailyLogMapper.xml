@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueserver.manager.dao.simStdOrderExecutionDailyLogMapper">
+  <resultMap id="BaseResultMap" type="com.vueserver.manager.entity.simStdOrderExecutionDailyLog">
+    <result column="plan_id" jdbcType="VARCHAR" property="planId" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="sim_order_date" jdbcType="DATE" property="simOrderDate" />
+    <result column="dt" jdbcType="DATE" property="dt" />
+    <result column="instock_orders" jdbcType="BIGINT" property="instockOrders" />
+    <result column="orders" jdbcType="BIGINT" property="orders" />
+    <result column="nstock_order_units" jdbcType="BIGINT" property="nstockOrderUnits" />
+    <result column="total_order_units" jdbcType="BIGINT" property="totalOrderUnits" />
+    <result column="local_instock_order_units" jdbcType="BIGINT" property="localInstockOrderUnits" />
+    <result column="total_local_outbound_order_units" jdbcType="BIGINT" property="totalLocalOutboundOrderUnits" />
+    <result column="instock_order_skus" jdbcType="BIGINT" property="instockOrderSkus" />
+    <result column="total_order_skus" jdbcType="BIGINT" property="totalOrderSkus" />
+    <result column="local_instock_order_skus" jdbcType="BIGINT" property="localInstockOrderSkus" />
+    <result column="total_outbound_order_skus" jdbcType="BIGINT" property="totalOutboundOrderSkus" />
+    <result column="local_instock_orders" jdbcType="BIGINT" property="localInstockOrders" />
+    <result column="outbound_orders" jdbcType="BIGINT" property="outboundOrders" />
+    <result column="instock_warehouse_skus" jdbcType="BIGINT" property="instockWarehouseSkus" />
+    <result column="ever_instock_warehouse_skus" jdbcType="BIGINT" property="everInstockWarehouseSkus" />
+    <result column="instock_value" jdbcType="DOUBLE" property="instockValue" />
+    <result column="sales_value" jdbcType="DOUBLE" property="salesValue" />
+    <result column="instock_units" jdbcType="BIGINT" property="instockUnits" />
+    <result column="sales_units" jdbcType="BIGINT" property="salesUnits" />
+    <result column="safe_stock_units" jdbcType="BIGINT" property="safeStockUnits" />
+    <result column="safe_stock_value" jdbcType="DOUBLE" property="safeStockValue" />
+    <result column="is_today_restocking" jdbcType="TINYINT" property="isTodayRestocking" />
+    <result column="target_stock_units" jdbcType="BIGINT" property="targetStockUnits" />
+    <result column="target_stock_value" jdbcType="DOUBLE" property="targetStockValue" />
+    <result column="demand_units" jdbcType="BIGINT" property="demandUnits" />
+    <result column="demand_value" jdbcType="DOUBLE" property="demandValue" />
+    <result column="outbound_units" jdbcType="BIGINT" property="outboundUnits" />
+    <result column="outbound_value" jdbcType="DOUBLE" property="outboundValue" />
+    <result column="po_orders" jdbcType="BIGINT" property="poOrders" />
+    <result column="po_units" jdbcType="BIGINT" property="poUnits" />
+    <result column="po_times" jdbcType="BIGINT" property="poTimes" />
+    <result column="po_value" jdbcType="BIGINT" property="poValue" />
+  </resultMap>
+  <insert id="insert" parameterType="com.vueserver.manager.entity.simStdOrderExecutionDailyLog">
+    insert into sim_std_order_execution_daily_log (plan_id, task_id, sim_order_date, 
+      dt, instock_orders, orders, 
+      nstock_order_units, total_order_units, local_instock_order_units, 
+      total_local_outbound_order_units, instock_order_skus, 
+      total_order_skus, local_instock_order_skus, total_outbound_order_skus, 
+      local_instock_orders, outbound_orders, instock_warehouse_skus, 
+      ever_instock_warehouse_skus, instock_value, sales_value, 
+      instock_units, sales_units, safe_stock_units, 
+      safe_stock_value, is_today_restocking, target_stock_units, 
+      target_stock_value, demand_units, demand_value, 
+      outbound_units, outbound_value, po_orders, 
+      po_units, po_times, po_value
+      )
+    values (#{planId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{simOrderDate,jdbcType=DATE}, 
+      #{dt,jdbcType=DATE}, #{instockOrders,jdbcType=BIGINT}, #{orders,jdbcType=BIGINT}, 
+      #{nstockOrderUnits,jdbcType=BIGINT}, #{totalOrderUnits,jdbcType=BIGINT}, #{localInstockOrderUnits,jdbcType=BIGINT}, 
+      #{totalLocalOutboundOrderUnits,jdbcType=BIGINT}, #{instockOrderSkus,jdbcType=BIGINT}, 
+      #{totalOrderSkus,jdbcType=BIGINT}, #{localInstockOrderSkus,jdbcType=BIGINT}, #{totalOutboundOrderSkus,jdbcType=BIGINT}, 
+      #{localInstockOrders,jdbcType=BIGINT}, #{outboundOrders,jdbcType=BIGINT}, #{instockWarehouseSkus,jdbcType=BIGINT}, 
+      #{everInstockWarehouseSkus,jdbcType=BIGINT}, #{instockValue,jdbcType=DOUBLE}, #{salesValue,jdbcType=DOUBLE}, 
+      #{instockUnits,jdbcType=BIGINT}, #{salesUnits,jdbcType=BIGINT}, #{safeStockUnits,jdbcType=BIGINT}, 
+      #{safeStockValue,jdbcType=DOUBLE}, #{isTodayRestocking,jdbcType=TINYINT}, #{targetStockUnits,jdbcType=BIGINT}, 
+      #{targetStockValue,jdbcType=DOUBLE}, #{demandUnits,jdbcType=BIGINT}, #{demandValue,jdbcType=DOUBLE}, 
+      #{outboundUnits,jdbcType=BIGINT}, #{outboundValue,jdbcType=DOUBLE}, #{poOrders,jdbcType=BIGINT}, 
+      #{poUnits,jdbcType=BIGINT}, #{poTimes,jdbcType=BIGINT}, #{poValue,jdbcType=BIGINT}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select plan_id, task_id, sim_order_date, dt, instock_orders, orders, nstock_order_units, 
+    total_order_units, local_instock_order_units, total_local_outbound_order_units, instock_order_skus, 
+    total_order_skus, local_instock_order_skus, total_outbound_order_skus, local_instock_orders, 
+    outbound_orders, instock_warehouse_skus, ever_instock_warehouse_skus, instock_value, 
+    sales_value, instock_units, sales_units, safe_stock_units, safe_stock_value, is_today_restocking, 
+    target_stock_units, target_stock_value, demand_units, demand_value, outbound_units, 
+    outbound_value, po_orders, po_units, po_times, po_value
+    from sim_std_order_execution_daily_log
+  </select>
+</mapper>

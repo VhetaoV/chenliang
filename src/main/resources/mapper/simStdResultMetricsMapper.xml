@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueserver.manager.dao.simStdResultMetricsMapper">
+  <resultMap id="BaseResultMap" type="com.vueserver.manager.entity.simStdResultMetrics">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="plan_id" jdbcType="VARCHAR" property="planId" />
+    <result column="is_actual" jdbcType="INTEGER" property="isActual" />
+    <result column="warehouse_code" jdbcType="VARCHAR" property="warehouseCode" />
+    <result column="warehouse_name" jdbcType="VARCHAR" property="warehouseName" />
+    <result column="time_dim_type" jdbcType="INTEGER" property="timeDimType" />
+    <result column="time_dim_date" jdbcType="BIGINT" property="timeDimDate" />
+    <result column="detail_type" jdbcType="INTEGER" property="detailType" />
+    <result column="band_name" jdbcType="VARCHAR" property="bandName" />
+    <result column="cat_code" jdbcType="VARCHAR" property="catCode" />
+    <result column="cat_name" jdbcType="VARCHAR" property="catName" />
+    <result column="unit_turn_days" jdbcType="DOUBLE" property="unitTurnDays" />
+    <result column="end_unit_turn_days" jdbcType="DOUBLE" property="endUnitTurnDays" />
+    <result column="money_turn_days" jdbcType="DOUBLE" property="moneyTurnDays" />
+    <result column="end_money_turn_days" jdbcType="DOUBLE" property="endMoneyTurnDays" />
+    <result column="unit_turn_per_year_percentage" jdbcType="DOUBLE" property="unitTurnPerYearPercentage" />
+    <result column="end_unit_turn_percentage" jdbcType="DOUBLE" property="endUnitTurnPercentage" />
+    <result column="money_turn_per_year_percentage" jdbcType="DOUBLE" property="moneyTurnPerYearPercentage" />
+    <result column="end_money_turn_percentage" jdbcType="DOUBLE" property="endMoneyTurnPercentage" />
+    <result column="order_fulfill_percentage_country" jdbcType="DOUBLE" property="orderFulfillPercentageCountry" />
+    <result column="order_fulfill_percentage_local" jdbcType="DOUBLE" property="orderFulfillPercentageLocal" />
+    <result column="unit_fulfill_percentage_country" jdbcType="DOUBLE" property="unitFulfillPercentageCountry" />
+    <result column="total_order_units" jdbcType="DOUBLE" property="totalOrderUnits" />
+    <result column="unit_fulfill_percentage_local" jdbcType="DOUBLE" property="unitFulfillPercentageLocal" />
+    <result column="sku_fulfill_percentage" jdbcType="DOUBLE" property="skuFulfillPercentage" />
+    <result column="sku_fulfill_percentage_local" jdbcType="DOUBLE" property="skuFulfillPercentageLocal" />
+    <result column="instock_percentage" jdbcType="DOUBLE" property="instockPercentage" />
+    <result column="out_stock_percentage" jdbcType="DOUBLE" property="outStockPercentage" />
+    <result column="non_sale_sku_percentage" jdbcType="DOUBLE" property="nonSaleSkuPercentage" />
+    <result column="instock_sku_num" jdbcType="BIGINT" property="instockSkuNum" />
+    <result column="instock_units" jdbcType="DOUBLE" property="instockUnits" />
+    <result column="instock_value" jdbcType="DOUBLE" property="instockValue" />
+    <result column="safe_stock_units" jdbcType="DOUBLE" property="safeStockUnits" />
+    <result column="safe_stock_value" jdbcType="DOUBLE" property="safeStockValue" />
+    <result column="stock_units_on_replenishing" jdbcType="DOUBLE" property="stockUnitsOnReplenishing" />
+    <result column="stock_value_on_replenishing" jdbcType="DOUBLE" property="stockValueOnReplenishing" />
+    <result column="target_stock_value" jdbcType="DOUBLE" property="targetStockValue" />
+    <result column="non_sale_units" jdbcType="DOUBLE" property="nonSaleUnits" />
+    <result column="non_sale_value" jdbcType="DOUBLE" property="nonSaleValue" />
+    <result column="sale_sku_num" jdbcType="DOUBLE" property="saleSkuNum" />
+    <result column="non_sale_sku_num" jdbcType="DOUBLE" property="nonSaleSkuNum" />
+    <result column="sale_units" jdbcType="BIGINT" property="saleUnits" />
+    <result column="sale_value" jdbcType="DOUBLE" property="saleValue" />
+    <result column="sale_units_per_day" jdbcType="DOUBLE" property="saleUnitsPerDay" />
+    <result column="sale_value_per_day" jdbcType="DOUBLE" property="saleValuePerDay" />
+    <result column="stock_out_units" jdbcType="DOUBLE" property="stockOutUnits" />
+    <result column="stock_out_value" jdbcType="DOUBLE" property="stockOutValue" />
+    <result column="stock_out_units_per_day" jdbcType="DOUBLE" property="stockOutUnitsPerDay" />
+    <result column="stock_out_value_per_day" jdbcType="DOUBLE" property="stockOutValuePerDay" />
+    <result column="po_num" jdbcType="BIGINT" property="poNum" />
+    <result column="po_avg_units" jdbcType="DOUBLE" property="poAvgUnits" />
+    <result column="po_avg_value" jdbcType="DOUBLE" property="poAvgValue" />
+    <result column="po_total_units" jdbcType="DOUBLE" property="poTotalUnits" />
+    <result column="po_total_value" jdbcType="DOUBLE" property="poTotalValue" />
+    <result column="po_max_units" jdbcType="DOUBLE" property="poMaxUnits" />
+    <result column="po_max_value" jdbcType="DOUBLE" property="poMaxValue" />
+    <result column="po_min_units" jdbcType="DOUBLE" property="poMinUnits" />
+    <result column="po_min_value" jdbcType="DOUBLE" property="poMinValue" />
+    <result column="in_storage_avg_units" jdbcType="DOUBLE" property="inStorageAvgUnits" />
+    <result column="in_storage_avg_value" jdbcType="DOUBLE" property="inStorageAvgValue" />
+    <result column="in_storage_total_units" jdbcType="BIGINT" property="inStorageTotalUnits" />
+    <result column="in_storage_total_value" jdbcType="DOUBLE" property="inStorageTotalValue" />
+    <result column="outstock_units_percentage" jdbcType="DOUBLE" property="outstockUnitsPercentage" />
+    <result column="outstock_order_skus_percentage" jdbcType="DOUBLE" property="outstockOrderSkusPercentage" />
+    <result column="outstock_orders_percentage" jdbcType="DOUBLE" property="outstockOrdersPercentage" />
+    <result column="cross_border_units_rate" jdbcType="DOUBLE" property="crossBorderUnitsRate" />
+    <result column="cross_border_order_skus_rate" jdbcType="DOUBLE" property="crossBorderOrderSkusRate" />
+    <result column="cross_border_order_rate" jdbcType="DOUBLE" property="crossBorderOrderRate" />
+    <result column="avg_instock_rate" jdbcType="DOUBLE" property="avgInstockRate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.vueserver.manager.entity.simStdResultMetrics">
+    insert into sim_std_result_metrics (id, plan_id, is_actual, 
+      warehouse_code, warehouse_name, time_dim_type, 
+      time_dim_date, detail_type, band_name, 
+      cat_code, cat_name, unit_turn_days, 
+      end_unit_turn_days, money_turn_days, end_money_turn_days, 
+      unit_turn_per_year_percentage, end_unit_turn_percentage, 
+      money_turn_per_year_percentage, end_money_turn_percentage, 
+      order_fulfill_percentage_country, order_fulfill_percentage_local, 
+      unit_fulfill_percentage_country, total_order_units, 
+      unit_fulfill_percentage_local, sku_fulfill_percentage, 
+      sku_fulfill_percentage_local, instock_percentage, 
+      out_stock_percentage, non_sale_sku_percentage, 
+      instock_sku_num, instock_units, instock_value, 
+      safe_stock_units, safe_stock_value, stock_units_on_replenishing, 
+      stock_value_on_replenishing, target_stock_value, 
+      non_sale_units, non_sale_value, sale_sku_num, 
+      non_sale_sku_num, sale_units, sale_value, 
+      sale_units_per_day, sale_value_per_day, stock_out_units, 
+      stock_out_value, stock_out_units_per_day, stock_out_value_per_day, 
+      po_num, po_avg_units, po_avg_value, 
+      po_total_units, po_total_value, po_max_units, 
+      po_max_value, po_min_units, po_min_value, 
+      in_storage_avg_units, in_storage_avg_value, in_storage_total_units, 
+      in_storage_total_value, outstock_units_percentage, 
+      outstock_order_skus_percentage, outstock_orders_percentage, 
+      cross_border_units_rate, cross_border_order_skus_rate, 
+      cross_border_order_rate, avg_instock_rate)
+    values (#{id,jdbcType=VARCHAR}, #{planId,jdbcType=VARCHAR}, #{isActual,jdbcType=INTEGER}, 
+      #{warehouseCode,jdbcType=VARCHAR}, #{warehouseName,jdbcType=VARCHAR}, #{timeDimType,jdbcType=INTEGER}, 
+      #{timeDimDate,jdbcType=BIGINT}, #{detailType,jdbcType=INTEGER}, #{bandName,jdbcType=VARCHAR}, 
+      #{catCode,jdbcType=VARCHAR}, #{catName,jdbcType=VARCHAR}, #{unitTurnDays,jdbcType=DOUBLE}, 
+      #{endUnitTurnDays,jdbcType=DOUBLE}, #{moneyTurnDays,jdbcType=DOUBLE}, #{endMoneyTurnDays,jdbcType=DOUBLE}, 
+      #{unitTurnPerYearPercentage,jdbcType=DOUBLE}, #{endUnitTurnPercentage,jdbcType=DOUBLE}, 
+      #{moneyTurnPerYearPercentage,jdbcType=DOUBLE}, #{endMoneyTurnPercentage,jdbcType=DOUBLE}, 
+      #{orderFulfillPercentageCountry,jdbcType=DOUBLE}, #{orderFulfillPercentageLocal,jdbcType=DOUBLE}, 
+      #{unitFulfillPercentageCountry,jdbcType=DOUBLE}, #{totalOrderUnits,jdbcType=DOUBLE}, 
+      #{unitFulfillPercentageLocal,jdbcType=DOUBLE}, #{skuFulfillPercentage,jdbcType=DOUBLE}, 
+      #{skuFulfillPercentageLocal,jdbcType=DOUBLE}, #{instockPercentage,jdbcType=DOUBLE}, 
+      #{outStockPercentage,jdbcType=DOUBLE}, #{nonSaleSkuPercentage,jdbcType=DOUBLE}, 
+      #{instockSkuNum,jdbcType=BIGINT}, #{instockUnits,jdbcType=DOUBLE}, #{instockValue,jdbcType=DOUBLE}, 
+      #{safeStockUnits,jdbcType=DOUBLE}, #{safeStockValue,jdbcType=DOUBLE}, #{stockUnitsOnReplenishing,jdbcType=DOUBLE}, 
+      #{stockValueOnReplenishing,jdbcType=DOUBLE}, #{targetStockValue,jdbcType=DOUBLE}, 
+      #{nonSaleUnits,jdbcType=DOUBLE}, #{nonSaleValue,jdbcType=DOUBLE}, #{saleSkuNum,jdbcType=DOUBLE}, 
+      #{nonSaleSkuNum,jdbcType=DOUBLE}, #{saleUnits,jdbcType=BIGINT}, #{saleValue,jdbcType=DOUBLE}, 
+      #{saleUnitsPerDay,jdbcType=DOUBLE}, #{saleValuePerDay,jdbcType=DOUBLE}, #{stockOutUnits,jdbcType=DOUBLE}, 
+      #{stockOutValue,jdbcType=DOUBLE}, #{stockOutUnitsPerDay,jdbcType=DOUBLE}, #{stockOutValuePerDay,jdbcType=DOUBLE}, 
+      #{poNum,jdbcType=BIGINT}, #{poAvgUnits,jdbcType=DOUBLE}, #{poAvgValue,jdbcType=DOUBLE}, 
+      #{poTotalUnits,jdbcType=DOUBLE}, #{poTotalValue,jdbcType=DOUBLE}, #{poMaxUnits,jdbcType=DOUBLE}, 
+      #{poMaxValue,jdbcType=DOUBLE}, #{poMinUnits,jdbcType=DOUBLE}, #{poMinValue,jdbcType=DOUBLE}, 
+      #{inStorageAvgUnits,jdbcType=DOUBLE}, #{inStorageAvgValue,jdbcType=DOUBLE}, #{inStorageTotalUnits,jdbcType=BIGINT}, 
+      #{inStorageTotalValue,jdbcType=DOUBLE}, #{outstockUnitsPercentage,jdbcType=DOUBLE}, 
+      #{outstockOrderSkusPercentage,jdbcType=DOUBLE}, #{outstockOrdersPercentage,jdbcType=DOUBLE}, 
+      #{crossBorderUnitsRate,jdbcType=DOUBLE}, #{crossBorderOrderSkusRate,jdbcType=DOUBLE}, 
+      #{crossBorderOrderRate,jdbcType=DOUBLE}, #{avgInstockRate,jdbcType=DOUBLE})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, plan_id, is_actual, warehouse_code, warehouse_name, time_dim_type, time_dim_date, 
+    detail_type, band_name, cat_code, cat_name, unit_turn_days, end_unit_turn_days, money_turn_days, 
+    end_money_turn_days, unit_turn_per_year_percentage, end_unit_turn_percentage, money_turn_per_year_percentage, 
+    end_money_turn_percentage, order_fulfill_percentage_country, order_fulfill_percentage_local, 
+    unit_fulfill_percentage_country, total_order_units, unit_fulfill_percentage_local, 
+    sku_fulfill_percentage, sku_fulfill_percentage_local, instock_percentage, out_stock_percentage, 
+    non_sale_sku_percentage, instock_sku_num, instock_units, instock_value, safe_stock_units, 
+    safe_stock_value, stock_units_on_replenishing, stock_value_on_replenishing, target_stock_value, 
+    non_sale_units, non_sale_value, sale_sku_num, non_sale_sku_num, sale_units, sale_value, 
+    sale_units_per_day, sale_value_per_day, stock_out_units, stock_out_value, stock_out_units_per_day, 
+    stock_out_value_per_day, po_num, po_avg_units, po_avg_value, po_total_units, po_total_value, 
+    po_max_units, po_max_value, po_min_units, po_min_value, in_storage_avg_units, in_storage_avg_value, 
+    in_storage_total_units, in_storage_total_value, outstock_units_percentage, outstock_order_skus_percentage, 
+    outstock_orders_percentage, cross_border_units_rate, cross_border_order_skus_rate, 
+    cross_border_order_rate, avg_instock_rate
+    from sim_std_result_metrics
+  </select>
+</mapper>

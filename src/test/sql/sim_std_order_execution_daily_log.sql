@@ -1,0 +1,41 @@
+CREATE TABLE sim_std_order_execution_daily_log(
+   plan_id varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT "" COMMENT "",
+   task_id varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT "" COMMENT "这个就是版本号，不再重复",
+   sim_order_date date NOT NULL DEFAULT '1900-01-01 00:00:00' COMMENT "",
+   dt date NOT NULL DEFAULT '1900-01-01 00:00:00' COMMENT "数据灌入时间，分区键",
+   instock_orders bigint NOT NULL DEFAULT 0 COMMENT "全国库存可满足的订单数量",
+   orders bigint NOT NULL DEFAULT 0 COMMENT "全国总订单数",
+   nstock_order_units bigint NOT NULL DEFAULT 0 COMMENT "全国库存可满足订单商品件数",
+   total_order_units bigint NOT NULL DEFAULT 0 COMMENT "全国订单总商品件数",
+   local_instock_order_units bigint NOT NULL DEFAULT 0 COMMENT "各本地仓库存可满足的商品件数累计",
+   total_local_outbound_order_units bigint NOT NULL DEFAULT 0 COMMENT "全国出库总商品件数",
+   instock_order_skus bigint NOT NULL DEFAULT 0 COMMENT "全国库存可满足的订单行数量",
+   total_order_skus bigint NOT NULL DEFAULT 0 COMMENT "  全国总订行单数",
+   local_instock_order_skus bigint NOT NULL DEFAULT 0 COMMENT "各本地仓库存可满足的订单行累计",
+   total_outbound_order_skus bigint NOT NULL DEFAULT 0 COMMENT "全国出库总订单行",
+   local_instock_orders bigint NOT NULL DEFAULT 0 COMMENT "各本地仓库存可满足的订单数累计",
+   outbound_orders bigint NOT NULL DEFAULT 0 COMMENT "全国出库总订单数",
+   instock_warehouse_skus bigint NOT NULL DEFAULT 0 COMMENT "统计时段内每天各仓0点有库存的SKU数累计",
+   ever_instock_warehouse_skus bigint NOT NULL DEFAULT 0 COMMENT "统计时段内各仓在库过的SKU数累计",
+   instock_value double NOT NULL DEFAULT 0 COMMENT "统计时段内每天各仓0点库存金额累计 , 统计时段内期末各仓0点库存金额累计",
+   sales_value double NOT NULL DEFAULT 0 COMMENT "统计时间总销售金额",
+   instock_units bigint NOT NULL DEFAULT 0 COMMENT "统计时段内每天各仓0点库存件数累计 , 统计时段内期末各仓0点库存件数累计",
+   sales_units bigint NOT NULL DEFAULT 0 COMMENT "统计时段总销售件数",
+   safe_stock_units bigint NOT NULL DEFAULT 0 COMMENT "统计时段内各仓安全库存件数累计",
+   safe_stock_value double NOT NULL DEFAULT 0 COMMENT "统计时段内各仓安全库存金额累计",
+   is_today_restocking tinyint NOT NULL DEFAULT 0 COMMENT "今日是否补货点",
+   target_stock_units bigint NOT NULL DEFAULT 0 COMMENT "各仓目标库存件数累计/统计时段内总天数",
+   target_stock_value double NOT NULL DEFAULT 0 COMMENT "目标库存金额累计",
+   demand_units bigint NOT NULL DEFAULT 0 COMMENT "统计时段内各仓覆盖区域内订单需求件数累计 , 统计时段内各仓总需求销售件数",
+   demand_value double NOT NULL DEFAULT 0 COMMENT "总需求销售金额,统计时段内各仓总需求销售金额",
+   outbound_units bigint NOT NULL DEFAULT 0 COMMENT "统计时段内各仓总出库销售件数累计",
+   outbound_value double NOT NULL DEFAULT 0 COMMENT "统计时段内各仓总出库销售金额累计",
+   po_orders bigint NOT NULL DEFAULT 0 COMMENT "统计时段内各仓总采购订单数量",
+   po_units bigint NOT NULL DEFAULT 0 COMMENT "统计时段内总采购件数",
+   po_times bigint NOT NULL DEFAULT 0 COMMENT "统计时段内总采购次数",
+   po_value bigint NOT NULL DEFAULT 0 COMMENT "统计时段内各仓总采购金额"
+)COMMENT "每日履约明细"
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=latin1 COLLATE=latin1_swedish_ci
+ROW_FORMAT=COMPACT
+;
