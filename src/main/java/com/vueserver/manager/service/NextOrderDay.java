@@ -31,7 +31,7 @@ public class NextOrderDay {
         Triple triple = new Triple();
         int interval = 0;
         /**2. 否则，使用逗号分隔 smssOrderDay ， 提取 星期数 或 月日数，顺序排列 （用 LinkedHashSet）*/
-        LinkedHashSet<Integer> linkedHashSet = null;
+        LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>();
         String[] smssOrderDayArr = smssOrderDay.split(",");
         Arrays.sort(smssOrderDayArr);
         for(String smssOrderDayEle : smssOrderDayArr){
@@ -76,10 +76,11 @@ public class NextOrderDay {
             /**1.假如 weekDistance == 0，表示 currentWeekMonday 这一周可以下单 */
             if(weekDistance == 0){
                     int currentDateWeekNo = dayOfWeek(currentDate);
-                    /**1.假如 currentDate 的星期数 在 smssOrderDay 中。那么 currentDate 就是下单日。
-                     * 寻找大于并距离 currentDate 最近的一天符合星期数的日期， 记为 candidateOrderDay. */
                     Date candidateOrderDay = null;
                     boolean isInOneWeekCurr = false;
+
+                /**1.假如 currentDate 的星期数 在 smssOrderDay 中。那么 currentDate 就是下单日。
+                 * 寻找大于并距离 currentDate 最近的一天符合星期数的日期， 记为 candidateOrderDay. */
                     if(linkedHashSet.contains(currentDateWeekNo)){
                         for(int dayOfWeekNo : linkedHashSet){
                             if(currentDateWeekNo < dayOfWeekNo){
@@ -113,6 +114,10 @@ public class NextOrderDay {
                                 isInOneWeekCurr = true;
                             }
                         }
+                        /**1.假如 candidateOrderDay 和 currentDate 在同一周 。 那么 candidateOrderDay 作为下一个下单日（ nextOrderDay ）。
+                         * 返回的 Triple 中的 Integer 就是 nextOrderDay - currentDate .*/
+                        /**2.否则  计算 nextOrderWeekMonday = currentWeekMonday + smssNrt * 7 . 表示在 nextOrderWeekMonday 的这一周可以下单。
+                         * 寻找大于等于 nextOrderWeekMonday，并且最近的一天符合星期数的日期，作为下一个下单日 nextOrderDay 。*/
                         if(isInOneWeekCurr){
                             nextOrderDay = candidateOrderDay;
                             interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
