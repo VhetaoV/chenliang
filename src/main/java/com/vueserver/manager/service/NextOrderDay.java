@@ -12,11 +12,12 @@ import java.util.*;
  **/
 public class NextOrderDay {
 
+    private static final long day = 3600 * 24 * 1000L;
+    private static final long week = day * 7;
 
     public static Triple getNextOrderDay(@NotNull Date validDate, @NotNull Date currentDate,int nrtType,
                                          @NotNull String smssNrt, @NotNull String smssOrderDay){
-        long day = 3600 * 24 * 1000L;
-        long week = day * 7;
+
         /**1. 假如 currentDate < validDate. 直接返回 false 不是下单日 。Triple中的Date 返回 currentDate + 7 , Integer 返回 7 。*/
         if(currentDate.getTime()<validDate.getTime()){
             Long orderDateTime = currentDate.getTime() + day;
@@ -43,7 +44,9 @@ public class NextOrderDay {
              * 否则根据 smssOrderDay 的星期数，寻找大于并且最近的一天符合星期数的日期，作为第一下单日。*/
             int validDateWeekNo = dayOfWeek(validDate);
             Date firstOrderDay = null;
+            Date nextOrderDay = null;
             boolean isInOneWeek = false;
+
             if(linkedHashSet.contains(validDateWeekNo)){
                  firstOrderDay = validDate;
             }else{
@@ -68,6 +71,8 @@ public class NextOrderDay {
             Date firstOrderWeekMonday = getWeekMonday(firstOrderDay);
             Date currentWeekMonday = getWeekMonday(currentDate);
             int weekDistance = (int)((currentWeekMonday.getTime() - firstOrderWeekMonday.getTime()) / week) % Integer.parseInt(smssNrt);
+
+
             /**1.假如 weekDistance == 0，表示 currentWeekMonday 这一周可以下单 */
             if(weekDistance == 0){
                 int currentDateWeekNo = dayOfWeek(currentDate);
@@ -88,43 +93,36 @@ public class NextOrderDay {
                     /**2. 否则。 计算 nextOrderWeekMonday = currentWeekMonday + smssNrt * 7 . 表示在 nextOrderWeekMonday 的这一周可以下单。
                      * 寻找大于等于 nextOrderWeekMonday，并且最近的一天符合星期数的日期，作为下一个下单日 nextOrderDay 。*/
                     if(StringUtils.equals("1",smssNrt) && isInOneWeekCurr){
-                        Date nextOrderDay = candidateOrderDay;
+                        nextOrderDay = candidateOrderDay;
                         interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
                     }else{
-                        long resultTime = currentWeekMonday.getTime() + Integer.parseInt(smssNrt) * week;
-                        Date nextOrderWeekMonday = new Date(resultTime);
-                        //因为是周一,所以自然是每一周的第一天，计算时候直接取1
-                        int dayOfWeekNumber = linkedHashSet.iterator().next();
-                        Long nextOrderDayTime = nextOrderWeekMonday.getTime() + (dayOfWeekNumber - 1) * day;
-                        Date nextOrderDay  = new Date(nextOrderDayTime);
+                        nextOrderDay = nextOrderDay(currentWeekMonday, smssNrt, linkedHashSet);
                         interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
                     }
-                    triple.setIsOrderDay(false);
-                    triple.setOrderDay(firstOrderDay);
+                    triple.setIsOrderDay(true);
+                    triple.setOrderDay(nextOrderDay);
                     triple.setInterval(interval);
-                }else{
-                    for(int dayOfWeekNo : linkedHashSet){
-                        if(currentDateWeekNo < dayOfWeekNo){
+                }
+                /**2.假如 currentDate 的星期数 不在 smssOrderDay 中。那么 currentDate 就不是下单日。 寻找大于并距离 currentDate
+                 * 最近的一天符合星期数的日期， 记为 candidateOrderDay. */
+                if(!linkedHashSet.contains(currentDateWeekNo)) {
+                    for(int dayOfWeekNo : linkedHashSet) {
+                        if (currentDateWeekNo < dayOfWeekNo) {
                             Long resultTime = currentDate.getTime() + (dayOfWeekNo - currentDateWeekNo) * day;
                             candidateOrderDay = new Date(resultTime);
                             isInOneWeekCurr = true;
                         }
-                        if(isInOneWeekCurr){
-                            Date nextOrderDay = candidateOrderDay;
-                            interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
-                        }else{
-                            long resultTime = currentWeekMonday.getTime() + Integer.parseInt(smssNrt) * week;
-                            Date nextOrderWeekMonday = new Date(resultTime);
-                            //因为是周一,所以自然是每一周的第一天，计算时候直接取1
-                            int dayOfWeekNumber = linkedHashSet.iterator().next();
-                            Long nextOrderDayTime = nextOrderWeekMonday.getTime() + (dayOfWeekNumber - 1) * day;
-                            Date nextOrderDay  = new Date(nextOrderDayTime);
-                            interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
-                        }
-                        triple.setIsOrderDay(false);
-                        triple.setOrderDay(firstOrderDay);
-                        triple.setInterval(interval);
                     }
+                    if(isInOneWeekCurr){
+                        nextOrderDay = candidateOrderDay;
+                        interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
+                    }else{
+                        nextOrderDay = nextOrderDay(currentWeekMonday, smssNrt, linkedHashSet);
+                        interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
+                    }
+                    triple.setIsOrderDay(false);
+                    triple.setOrderDay(nextOrderDay);
+                    triple.setInterval(interval);
                 }
             }
             /**2. 假如 weekDistance > 0 , 表示 currentDate 这周不可以下单 ，currentDate 一定不是下单日。
@@ -136,7 +134,7 @@ public class NextOrderDay {
                 //因为是周一,所以自然是每一周的第一天，计算时候直接取1
                 int dayOfWeekNumber = linkedHashSet.iterator().next();
                 Long nextOrderDayTime = nextOrderWeekMonday.getTime() + (dayOfWeekNumber - 1) * day;
-                Date nextOrderDay  = new Date(nextOrderDayTime);
+                nextOrderDay  = new Date(nextOrderDayTime);
                 interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
                 triple.setIsOrderDay(false);
                 triple.setOrderDay(firstOrderDay);
@@ -144,6 +142,16 @@ public class NextOrderDay {
             }
         }
         return triple;
+    }
+
+    private static Date nextOrderDay(Date currentWeekMonday,String smssNrt,LinkedHashSet<Integer> linkedHashSet){
+        long resultTime = currentWeekMonday.getTime() + Integer.parseInt(smssNrt) * week;
+        Date nextOrderWeekMonday = new Date(resultTime);
+        //因为是周一,所以自然是每一周的第一天，计算时候直接取1
+        int dayOfWeekNumber = linkedHashSet.iterator().next();
+        Long nextOrderDayTime = nextOrderWeekMonday.getTime() + (dayOfWeekNumber - 1) * day;
+        Date nextOrderDay  = new Date(nextOrderDayTime);
+        return nextOrderDay;
     }
 
     /**
