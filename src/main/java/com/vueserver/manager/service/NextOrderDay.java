@@ -28,8 +28,7 @@ public class NextOrderDay {
             triple.setInterval(7);
             return triple;
         }
-        Triple triple = new Triple();
-        int interval = 0;
+
         /**2. 否则，使用逗号分隔 smssOrderDay ， 提取 星期数 或 月日数，顺序排列 （用 LinkedHashSet）*/
         LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>();
         String[] smssOrderDayArr = smssOrderDay.split(",");
@@ -37,6 +36,9 @@ public class NextOrderDay {
         for(String smssOrderDayEle : smssOrderDayArr){
             linkedHashSet.add(Integer.parseInt(smssOrderDayEle));
         }
+
+        Triple triple = null;
+        int interval = 0;
 
         /**3. 假如 nrt_type == 1 */
         if(nrtType == 1){
@@ -100,9 +102,11 @@ public class NextOrderDay {
                             nextOrderDay = nextOrderDay(currentWeekMonday, smssNrt, linkedHashSet);
                             interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
                         }
+                        triple = new Triple();
                         triple.setIsOrderDay(true);
                         triple.setOrderDay(nextOrderDay);
                         triple.setInterval(interval);
+                        return triple;
                     }
                     /**2.假如 currentDate 的星期数 不在 smssOrderDay 中。那么 currentDate 就不是下单日。 寻找大于并距离 currentDate
                      * 最近的一天符合星期数的日期， 记为 candidateOrderDay. */
@@ -125,9 +129,11 @@ public class NextOrderDay {
                             nextOrderDay = nextOrderDay(currentWeekMonday, smssNrt, linkedHashSet);
                             interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
                         }
+                        triple = new Triple();
                         triple.setIsOrderDay(false);
                         triple.setOrderDay(nextOrderDay);
                         triple.setInterval(interval);
+                        return triple;
                     }
                 }
                 /**2. 假如 weekDistance > 0 , 表示 currentDate 这周不可以下单 ，currentDate 一定不是下单日。
@@ -141,9 +147,11 @@ public class NextOrderDay {
                     Long nextOrderDayTime = nextOrderWeekMonday.getTime() + (dayOfWeekNumber - 1) * day;
                     nextOrderDay  = new Date(nextOrderDayTime);
                     interval = (int)((nextOrderDay.getTime() - currentDate.getTime())/day);
+                    triple = new Triple();
                     triple.setIsOrderDay(false);
                     triple.setOrderDay(firstOrderDay);
                     triple.setInterval(interval);
+                    return triple;
                 }
         }
         return triple;
